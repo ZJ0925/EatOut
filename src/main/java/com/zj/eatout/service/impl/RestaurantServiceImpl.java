@@ -1,29 +1,26 @@
 package com.zj.eatout.service.impl;
 
 
-import com.zj.eatout.dao.RestaurantsDao;
-import com.zj.eatout.dao.impl.RestaurantsDaoImpl;
-import com.zj.eatout.dto_DataTransferObject.RestaurantsRequest;
-import com.zj.eatout.model.Restaurants;
+import com.zj.eatout.dao.RestaurantDao;
+import com.zj.eatout.dao.impl.RestaurantDaoImpl;
+import com.zj.eatout.dto_DataTransferObject.RestaurantRequest;
+import com.zj.eatout.model.Restaurant;
 import com.zj.eatout.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-
 @Component
 public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
-    RestaurantsDao restaurantsDao = new RestaurantsDaoImpl();
+    RestaurantDao restaurantsDao = new RestaurantDaoImpl();
 
     @Override
-    public Restaurants getRestaurantById(Integer restaurantId) {
+    public Restaurant getRestaurantById(Integer restaurantId) {
         return restaurantsDao.getRestaurantById(restaurantId);
     }
 
     @Override
-    public Integer creatRestaurant(RestaurantsRequest restaurantsRequest) {
+    public Integer creatRestaurant(RestaurantRequest restaurantsRequest) {
         return restaurantsDao.createRestaurant(restaurantsRequest);
     }
 
@@ -33,7 +30,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void updateRestaurant(Integer restaurantId, RestaurantsRequest restaurantsRequest) {
+    public void updateRestaurant(Integer restaurantId, RestaurantRequest restaurantsRequest) {
         restaurantsDao.updateRestaurant(restaurantId, restaurantsRequest);
     }
 }

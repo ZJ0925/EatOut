@@ -1,8 +1,8 @@
 package com.zj.eatout.dao.impl;
 
-import com.zj.eatout.dao.RestaurantsDao;
-import com.zj.eatout.dto_DataTransferObject.RestaurantsRequest;
-import com.zj.eatout.model.Restaurants;
+import com.zj.eatout.dao.RestaurantDao;
+import com.zj.eatout.dto_DataTransferObject.RestaurantRequest;
+import com.zj.eatout.model.Restaurant;
 import com.zj.eatout.rowmapper.RestaurantRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,21 +17,20 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class RestaurantsDaoImpl implements RestaurantsDao {
+public class RestaurantDaoImpl implements RestaurantDao {
 
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Restaurants getRestaurantById(Integer restaurantId) {
+    public Restaurant getRestaurantById(Integer restaurantId) {
         String sql = "SELECT restaurant_id, restaurant_name, address, phone, cuisine_type, opening_hours, closing_hours, restaurant_image_url FROM restaurants WHERE restaurant_id = :restaurantId ";
 
         Map<String, Object> map = new HashMap<>();
         map.put("restaurantId", restaurantId);
 
-        List<Restaurants> restaurantsList = namedParameterJdbcTemplate.query(sql, map,new RestaurantRowMapper());
+        List<Restaurant> restaurantsList = namedParameterJdbcTemplate.query(sql, map,new RestaurantRowMapper());
         if (restaurantsList != null && restaurantsList.size() > 0) {
             return restaurantsList.get(0);
         }else{
@@ -40,7 +39,7 @@ public class RestaurantsDaoImpl implements RestaurantsDao {
     }
 
     @Override
-    public Integer createRestaurant(RestaurantsRequest restaurantsRequest) {
+    public Integer createRestaurant(RestaurantRequest restaurantsRequest) {
         String sql ="INSERT INTO restaurants(restaurant_name, address, phone, cuisine_type, opening_hours, closing_hours, " +
                 "restaurant_image_url) VALUE (:restaurantName, :address, :phone, :cuisineType, " +
                 ":openingHours, :closingHours, :restaurantImageUrl) ";
@@ -72,7 +71,7 @@ public class RestaurantsDaoImpl implements RestaurantsDao {
     }
 
     @Override
-    public void updateRestaurant(Integer restaurantId, RestaurantsRequest restaurantsRequest) {
+    public void updateRestaurant(Integer restaurantId, RestaurantRequest restaurantsRequest) {
         String sql = "UPDATE  restaurants SET restaurant_name = :restaurantName, address = :address, phone = :phone, " +
                 "cuisine_type = :cuisineType, opening_hours = :openingHours, closing_hours = :closingHours, " +
                 "restaurant_image_url = :restaurantImageUrl WHERE restaurant_id = :restaurantId ";

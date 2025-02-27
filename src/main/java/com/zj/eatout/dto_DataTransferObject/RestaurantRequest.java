@@ -1,22 +1,33 @@
-package com.zj.eatout.model;
+package com.zj.eatout.dto_DataTransferObject;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Time;
 
-public class Restaurants {
-    private int restaurantId;
+//dto_DataTransferObject是要抓住前端傳進來的json參數
+public class RestaurantRequest {
+    private Integer restaurantId;
+    @NotNull
     private String restaurantName;
     private String address;
     private String phone;
+    @NotNull
     private String cuisineType;
+    @JsonFormat(pattern = "HH:mm")
     private Time openingHours;
+    @JsonFormat(pattern = "HH:mm")
     private Time closingHours;
+    @NotNull
     private String restaurantImageUrl;
 
-    public int getRestaurantId() {
+
+    public Integer getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
@@ -32,8 +43,8 @@ public class Restaurants {
         return address;
     }
 
-    public void setAdress(String adress) {
-        this.address = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
