@@ -1,4 +1,4 @@
-package com.zj.eatout.model;
+package com.zj.eatout.Entity;
 
 public class Dish {
     private int dishId;

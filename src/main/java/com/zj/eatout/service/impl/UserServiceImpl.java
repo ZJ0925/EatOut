@@ -1,9 +1,11 @@
 package com.zj.eatout.service.impl;
 
-import com.zj.eatout.service.DishService;
+import com.zj.eatout.service.UserService;
 import org.springframework.stereotype.Component;
 
+
 @Component
-public class DishServiceImpl implements DishService {
+public class UserServiceImpl implements UserService {
+
 
 }

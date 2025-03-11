@@ -1,15 +1,36 @@
-package com.zj.eatout.model;
+package com.zj.eatout.Entity;
+
+import jakarta.persistence.*;
 
 import java.sql.Time;
 
+
+@Entity
+@Table(name="restaurants")
 public class Restaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="restaurant_id")
     private int restaurantId;
+
+    @Column(name="restaurant_name")
     private String restaurantName;
+
+    @Column(name="address")
     private String address;
+
+    @Column(name="phone")
     private String phone;
+
+    @Column(name="cuisine_type")
     private String cuisineType;
+
+    @Column(name="opening_hours")
     private Time openingHours;
+
+    @Column(name="closing_hours")
     private Time closingHours;
+    @Column(name="restaurant_image_url")
     private String restaurantImageUrl;
 
     public int getRestaurantId() {

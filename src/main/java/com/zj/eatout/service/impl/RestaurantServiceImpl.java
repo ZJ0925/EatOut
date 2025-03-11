@@ -1,36 +1,29 @@
 package com.zj.eatout.service.impl;
 
 
-import com.zj.eatout.dao.RestaurantDao;
-import com.zj.eatout.dao.impl.RestaurantDaoImpl;
-import com.zj.eatout.dto_DataTransferObject.RestaurantRequest;
-import com.zj.eatout.model.Restaurant;
+import com.zj.eatout.dao.JpaRepository.RestaurantRepository;
+import com.zj.eatout.Entity.Restaurant;
 import com.zj.eatout.service.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-@Component
+import java.util.Optional;
+
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
-    @Autowired
-    RestaurantDao restaurantsDao = new RestaurantDaoImpl();
 
-    @Override
+    private final RestaurantRepository restaurantRepository;
+    //初始化restaurantRepository
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
+    }
+
+    // 透過 ID 查詢餐廳
     public Restaurant getRestaurantById(Integer restaurantId) {
-        return restaurantsDao.getRestaurantById(restaurantId);
+        return restaurantRepository.findByRestaurantId(restaurantId).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found"));
     }
 
-    @Override
-    public Integer creatRestaurant(RestaurantRequest restaurantsRequest) {
-        return restaurantsDao.createRestaurant(restaurantsRequest);
-    }
 
-    @Override
-    public void deleteRestaurant(Integer restaurantId) {
-        restaurantsDao.deleteRestaurant(restaurantId);
-    }
-
-    @Override
-    public void updateRestaurant(Integer restaurantId, RestaurantRequest restaurantsRequest) {
-        restaurantsDao.updateRestaurant(restaurantId, restaurantsRequest);
-    }
 }
